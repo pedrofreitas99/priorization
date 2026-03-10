@@ -224,6 +224,13 @@ texto_modulos = "\n".join(
 # ENVIAR PARA O SLACK COMO TABELA NATIVA
 # ==============================
 
+from datetime import datetime, timedelta
+
+amanha = datetime.now() + timedelta(days=1)
+proximo_envio = amanha.replace(hour=9, minute=15, second=0, microsecond=0)
+
+texto_proximo_envio = proximo_envio.strftime("%d/%m/%Y às %H:%M")
+
 payload_slack = {
     "channel": canal,
     "text": f"Lista Priorização - {datetime.now().strftime('%d/%m/%Y')}",
@@ -240,10 +247,11 @@ payload_slack = {
             "text": {
                 "type": "mrkdwn",
                 "text": (
-                    f"🗓️ *Data:* {datetime.now().strftime('%d/%m/%Y')}\n"
-                    f"🎟️ *Total de Jiras:* {len(df)}\n\n"
-                    f"📦 *Tickets por módulo:*\n{texto_modulos}"
-                )
+    f"🗓️ *Data:* {datetime.now().strftime('%d/%m/%Y')}\n"
+    f"🎟️ *Total de Jiras:* {len(df)}\n\n"
+    f"📦 *Tickets por módulo:*\n{texto_modulos}\n\n"
+    f"⏰ *Próximo envio automático:* {texto_proximo_envio}"
+)
             }
         }
     ],
