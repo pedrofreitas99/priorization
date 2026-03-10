@@ -3,7 +3,7 @@ name: Enviar lista priorizacao
 on:
   workflow_dispatch:
   schedule:
-    - cron: "15 12 * * *"
+  - cron: "*/5 * * * *"
 
 jobs:
   enviar:
